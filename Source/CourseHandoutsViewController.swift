@@ -91,7 +91,7 @@ public class CourseHandoutsViewController: UIViewController, UIWebViewDelegate {
     }
     
     private func addListener() {
-        handouts.listenOnce(self, fireIfAlreadyLoaded: true, success: { [weak self]courseHandouts in
+        handouts.listen(self, success: { [weak self]courseHandouts in
             let displayHTML = self?.environment.styles.styleHTMLContent(courseHandouts)
             if let apiHostUrl = OEXConfig.sharedConfig().apiHostURL() {
                 self?.webView.loadHTMLString(displayHTML, baseURL: NSURL(string: apiHostUrl))

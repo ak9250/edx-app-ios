@@ -239,9 +239,17 @@ OEXRegistrationViewControllerDelegate
     }
     
     if([self.environment.config shouldEnableNewCourseNavigation]) {
-        CourseAnnouncementsViewControllerEnvironment* environment = [[CourseAnnouncementsViewControllerEnvironment alloc] initWithConfig:self.environment.config dataInterface:self.environment.interface router:self styles:self.environment.styles pushSettingsManager:self.environment.dataManager.pushSettings];
+        CourseAnnouncementsViewControllerEnvironment* environment =
+        [[CourseAnnouncementsViewControllerEnvironment alloc]
+         initWithConfig:self.environment.config
+         dataInterface:self.environment.dataManager.interface
+         networkManager:self.environment.networkManager
+         pushSettingsManager:self.environment.dataManager.pushSettings
+         router:self
+         styles:self.environment.styles
+         ];
         
-        CourseAnnouncementsViewController* announcementController = [[CourseAnnouncementsViewController alloc] initWithEnvironment:environment course:course];
+        CourseAnnouncementsViewController* announcementController = [[CourseAnnouncementsViewController alloc] initWithEnvironment:environment courseID:courseID];
         [navigation pushViewController:announcementController animated:true];
     }
     else {

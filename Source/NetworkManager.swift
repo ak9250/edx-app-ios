@@ -87,7 +87,7 @@ public class NetworkManager : NSObject {
     public typealias JSONInterceptor = (response : NSHTTPURLResponse, json : JSON) -> Result<JSON>
 
     private let authorizationHeaderProvider: AuthorizationHeaderProvider?
-    private let baseURL : NSURL
+    public let baseURL : NSURL
     private let cache : ResponseCache
     private var jsonInterceptors : [JSONInterceptor] = []
     

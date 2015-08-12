@@ -23,4 +23,20 @@ public struct CourseInfoAPI {
             deserializer: .JSONResponse(handoutsDeserializer)
         )
     }
+    
+    static func announcementsDeserializer(response : NSHTTPURLResponse, json : JSON) -> Result<[OEXAnnouncement]> {
+        let announcements = json.array?.map {
+            return OEXAnnouncement(dictionary: $0.dictionaryObject)
+        }
+        return announcements.toResult(NSError.oex_courseContentLoadError())
+    }
+    
+    public static func getAnnouncementsForCourseWithID(courseID : String, overrideURL: String? = nil) -> NetworkRequest<[OEXAnnouncement]> {
+        return NetworkRequest(
+            method: HTTPMethod.GET,
+            path : overrideURL ?? "api/mobile/v0.5/course_info/\(courseID)/updates",
+            requiresAuth : true,
+            deserializer: .JSONResponse(announcementsDeserializer)
+        )
+    }
 }
